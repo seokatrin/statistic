@@ -22,7 +22,7 @@ export const Header = () => {
     },
   ];
   return (
-    <header className="fixed bg-darker min-w-full h-20 z-10">
+    <header className="fixed  bg-darker min-w-full h-20 z-10">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center min-h-full ">
         <Image
           src="/stratfinder.svg"
