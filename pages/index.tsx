@@ -7,7 +7,7 @@ import { Articles } from "@/components/Articles";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home(props) {
   return (
     <>
       <Main />

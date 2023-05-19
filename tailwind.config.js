@@ -15,7 +15,8 @@ module.exports = {
         white: "#fff",
         transparent: "transparent",
         greyColor: "#667085",
-        linkColor: "#6941C6"
+        linkColor: "#6941C6",
+        lightGrey: '#9795AD',
       },
     extend: {
       backgroundImage: {
