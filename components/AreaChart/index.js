@@ -1,14 +1,13 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
-import PropTypes from 'prop-types';
 import Image from 'next/image';
 
-const AreaChart = ({ strategies }) => {
+const AreaChart = ({ strategies, isSmall = false }) => {
 	const options = {
 		chart: {
 			type: 'area',
-			width: "380px",
+			width: isSmall ? "100px" : "380px",
 			defaultLocale: 'ru',
 			locales: [require('apexcharts/dist/locales/ru.json')],
 			zoom: {
@@ -60,6 +59,7 @@ const AreaChart = ({ strategies }) => {
 				}
 			},
 			labels: {
+				show: isSmall ? false : true,
 				showDuplicates: false,
 				formatter: (value) => "$" + value
 			}
@@ -67,6 +67,7 @@ const AreaChart = ({ strategies }) => {
 		xaxis: {
 			tickAmount: 6,
 			labels: {
+				show: isSmall ? false : true,
 				format: 'yyyy',
 				style: {
 					colors: ['#9795AD'],
@@ -94,6 +95,9 @@ const AreaChart = ({ strategies }) => {
 			axisTicks: {
 				show: false
 			},
+			dataLabels: {
+				enabled: false,
+			}
 		},
 	};
 	const ChartSeries = [{
@@ -102,41 +106,41 @@ const AreaChart = ({ strategies }) => {
 	}];
 
 	return (
-		<div className="max-w-[421px] ml-10 rounded border-1 border-[#EAECF0] pt-6 ">
-			<h4 className='text-lightBlack font-semibold text-base px-4'>{strategies.title}</h4>
-			<Chart options={options} series={ChartSeries} type="area" height={170} width={380} />
-			<div className='flex justify-around px-4'>
-				<div>
+		<div className={`max-w-[${isSmall ? "180px" : "421px" }] mt-6 rounded border-1 border-[#EAECF0] pt-6 `}>
+			<h4 className={`text-lightBlack font-semibold ${isSmall ? "text-sm" : "text-base"} px-4`}>{strategies.title}</h4>
+			<Chart options={options} series={ChartSeries} type="area" height={isSmall ? 100 : 170} width={isSmall ? 180 : 420} />
+			<div className={`flex justify-around px-4 flex-${isSmall ?  "col" : "row"}`}>
+				<div className={`${isSmall ? "flex justify-between items-center mt-3" : ""}`}>
 					<p className='text-xs text-lightGrey'>5y Returns</p>
-					<p className='text-base text-[#120F35] pt-[8px]'>{strategies.returns}</p>
+					<p className={`${isSmall ? "text-xs" : "text-base" } text-[#120F35] ${isSmall ? "" : "pt-[8px]"}`}>{strategies.returns}%</p>
 				</div>
-				<div>
+				<div className={`${isSmall ? "flex justify-between items-center mt-3" : ""}`}>
 					<p className='text-xs text-lightGrey'>Sharpie</p>
-					<p className='text-base text-[#120F35] pt-[8px]'>{strategies.sharpie}</p>
+					<p className={`${isSmall ? "text-xs" : "text-base" } text-[#120F35] ${isSmall ? "" : "pt-[8px]"}`}>{strategies.sharpie}%</p>
 				</div>
-				<div className='flex flex-col items-center justify-center w-[104px]'>
+				<div className={`${isSmall ? "flex justify-between items-center mt-3" : ""}`}>
 					<p className='text-xs text-lightGrey'>Max DD</p>
-					<p className='text-base text-[#120F35] pt-[8px]'>{strategies.maxDD}</p>
+					<p className={`${isSmall ? "text-xs" : "text-base" } text-[#120F35] ${isSmall ? "" : "pt-[8px]"}`}>{strategies.maxDD}%</p>
 				</div>
 			</div>
-			<div className='flex border-t-1 border-[#EAECF0] mt-4'>
-				<div className="py-[18px] flex justify-center w-[50%] border-r-1 border-[#EAECF0]">
+			<div className='flex border-t-1 border-[#EAECF0] mt-4 w-full px-[4px]'>
+				<div className={`py-[18px] flex justify-center items-center ${isSmall ? "pr-[5px]" :"w-[50%] border-r-1 border-[#EAECF0]"} cursor-pointer hover:bg-[#FAFAFF]`}>
 					<Image
 						src="/bx_analyse.svg"
 						alt="analise"
-						width={20}
-						height={20}
+						width={isSmall ? 12 : 20}
+						height={isSmall ? 12 : 20}
 					/>
-					<p className='text-[#475467] ml-[5px] text-md'>Analyse</p>
+					<p className={`text-[#475467] ml-[5px] text-${isSmall ? "xs": "md"}`}>Analyse</p>
 				</div>
-				<div className="py-[18px] flex justify-center w-[50%] ">
+				<div className={`py-[18px] flex justify-center items-center ${isSmall ? "w-auto" : "w-[50%]"} cursor-pointer hover:bg-[#FAFAFF]`}>
 					<Image
 						src="/plus.svg"
 						alt="analise"
-						width={20}
-						height={20}
+						width={isSmall ? 12 : 20}
+						height={isSmall ? 12 : 20}
 					/>
-					<p className='text-[#475467] ml-[5px] text-md'>Add to Portfolio</p>
+					<p className={`text-[#475467] ml-[5px] text-${isSmall ? "xs": "md"}`}>Add to Portfolio</p>
 				</div>
 			</div>
 		</div>

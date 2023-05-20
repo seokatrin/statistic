@@ -7,6 +7,7 @@ export const Footer = () => {
         "twitter",
         "lindedin"
     ];
+    const links = ["Dashboard", "Strategies", "Analyzer", "Community", "Terms of Service"]
     return (<div className="bg-[#110f34]">
         <div className="max-w-screen-xl mx-auto py-[80px]">
             <div className="flex justify-between text-white">
@@ -25,7 +26,7 @@ export const Footer = () => {
                             alt={item}
                             width={28}
                             height={28}
-                            className="mr-[16px]"
+                            className="mr-[16px] cursor-pointer hover:opacity-50"
                         />)}
                     </div>
 
@@ -33,11 +34,7 @@ export const Footer = () => {
                 <nav>
                     <p className="font-semibold text-2xl text-[#FFF7F5]">Company</p>
                     <ul>
-                        <li className="text-base mt-4">Dashboard</li>
-                        <li className="text-base mt-4">Strategies</li>
-                        <li className="text-base mt-4">Analyzer</li>
-                        <li className="text-base mt-4">Community</li>
-                        <li className="text-base mt-4">Terms of Service</li>
+                        {links.map((link) => <li key={link} className="text-base mt-4">{link}</li>)}
                     </ul>
                 </nav>
                 <form className="w-[420px]" >
@@ -48,7 +45,7 @@ export const Footer = () => {
                     </div>
                     <textarea className="mt-4 w-[420px] py-[10px] px-[14px] rounded-lg text-base border-1 border-[#667085] text-[#667085] bg-transparent  outline-[none]" placeholder="Enter your message" />
                     <button
-                        className="bg-lilac py-3 mt-4 w-full  rounded-lg font-semibold "
+                        className="bg-lilac py-3 mt-4 w-full  rounded-lg font-semibold hover:bg-white hover:text-lilac duration-300 "
                         type="submit">
                         Submit
                     </button>

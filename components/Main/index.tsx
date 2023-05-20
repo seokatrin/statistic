@@ -1,9 +1,25 @@
 import Image from "next/image";
 import React from "react";
+import { useSpring, animated } from '@react-spring/web';
 
 export const Main = () => {
+ const [props, api] = useSpring(
+  () => ({
+    from: {
+      opacity: 0,
+      y: 100,
+    },
+    to: {
+      opacity: 1,
+      y: 0,
+    }, 
+    delay: 200
+  }),
+  []
+)
   return (
     <main className="bg-darkLiliac min-h-screen pt-20 flex flex-col justify-center">
+      <animated.div style={props}>
       <div className="max-w-screen-xl mx-auto pt-20 flex justify-between h-auto">
         <div className="text-white max-w-[529px]">
           <h1 className="font-semibold text-5xl leading-60">
@@ -21,13 +37,14 @@ export const Main = () => {
         <div>
           <Image
             src="/main.svg"
-            alt="Statisti"
-            className="dark:invert"
+            alt="Statistic"
             width={792}
             height={543}
+            priority
           />
         </div>
       </div>
+      </animated.div>
     </main>
   );
 };
