@@ -3,15 +3,20 @@ import dynamic from 'next/dynamic';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 import Image from 'next/image';
 
-const AreaChart = ({ strategies, isSmall = false }) => {
+// interface AriaCartProps {
+// 	strategies: import('@/types').Strategies;
+// 	isSmall: boolean;
+// }
+
+export const AreaChart = ({ strategies, isSmall = false } ) => {
 	const options = {
 		chart: {
-			type: 'area',
+			type: "area",
 			width: isSmall ? "100px" : "380px",
 			defaultLocale: 'ru',
 			locales: [require('apexcharts/dist/locales/ru.json')],
 			zoom: {
-				type: 'x',
+				type: 'y',
 				enabled: true,
 				autoScaleYaxis: true
 			},
@@ -21,7 +26,7 @@ const AreaChart = ({ strategies, isSmall = false }) => {
 			},
 			animations: {
 				enabled: true
-			}
+			},
 		},
 		dataLabels: {
 			enabled: false
@@ -149,5 +154,3 @@ const AreaChart = ({ strategies, isSmall = false }) => {
 	);
 };
 
-
-export default AreaChart;

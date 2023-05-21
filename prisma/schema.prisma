@@ -23,3 +23,16 @@ model Texts {
   Article   Article? @relation(fields: [articleId], references: [id])
   articleId Int?
 }
+model Series {
+  x String
+  y String
+}
+
+model Strategies {
+  id  Int      @id @default(autoincrement())
+  title String
+  series Series[];
+  returns Int;
+  sharpie Int;
+  maxDD  Int;
+}

@@ -6,7 +6,7 @@ import React from "react";
 export const Header = () => {
   const links = [
     {
-      link: "dashboard",
+      link: "/",
       title: "Dashboard",
     },
     {
@@ -29,7 +29,6 @@ export const Header = () => {
         <Image
           src="/stratfinder.svg"
           alt="Stratfinder Logo"
-          className="dark:invert"
           width={157}
           height={24}
           priority
@@ -37,7 +36,7 @@ export const Header = () => {
         <ul className="flex justify-between items-center text-menuText font-semibold text-sm ">
           {links.map(({ link, title }, index) => (<li key={link} className="relative h-[26px]  mr-6">
             <Link
-              href="/dashboard"
+              href={link}
               className={`border-transparent border-b-2 text-white  transition-all duration-300 
               hover:before:content-[''] before:block before:w-[32px] before:h-[4px] hover:before:bg-lilac before:absolute before:top-[100%] before:left-[50%] 
               before:translate-x-[-50%] ${(router.pathname == "/" && index === 0)  ? "before:bg-lilac" : ""}
@@ -45,7 +44,6 @@ export const Header = () => {
             >
               {title}
             </Link>
-            {}
             </li>
           ))}
         </ul>
