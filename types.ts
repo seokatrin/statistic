@@ -4,7 +4,7 @@ export interface Series {
 }
 export interface Strategies {
     title: string;
-    series: Series[];
+    series: number[][];
     returns: number;
     sharpie: number;
     maxDD: number;
@@ -12,6 +12,8 @@ export interface Strategies {
 
 export interface Article {
     id: string;
-    titles: string[];
+    studies: string[];
     title: string;
+    article: string;
+    discussion: string;
 }

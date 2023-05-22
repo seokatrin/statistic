@@ -1,10 +1,18 @@
 import Image from "next/image";
 import React, { useState } from "react";
-import {AreaChart} from "../AreaChart";
+import { AreaChart } from "../AreaChart";
 import { animated, useInView } from '@react-spring/web';
+import { Article } from "@/types";
+import ReactMarkdown from 'react-markdown';
 
-export const Articles = () => {
-  const [isActive, setIsActive] = useState(0);
+interface ArticlesProps {
+  articles: Article[];
+}
+
+export const Articles = ({ articles }: ArticlesProps) => {
+  const [activeInx, setActiveInd] = useState(0);
+  const [showStudies, setShoStudies] = useState(false);
+  const [showDiscussion, setShowDiscuseeion] = useState(false);
   const navList = [
     "Value",
     "Momentum",
@@ -180,6 +188,18 @@ export const Articles = () => {
       },
     },
   };
+
+
+  console.log('articles[0].article', articles[0].article);
+  const a =
+    `## Summary \n
+
+  * Non enim facere
+  * Modi ab consectetur
+  * Iusto eum molestiae aliquam mollitia, nulla
+Temporibus optio dolore quos consequuntur possimus voluptatum id nesciunt accusamus excepturi.\n
+Doloribus porro quae ex culpa blanditiis, aliquid nemo saepe exercitationem? Ullam ipsum itaque fuga? Veniam, odio! Aut perferendis et quisquam architecto sequi consequatur, ut dolor voluptates quos? Nobis, aut modi.
+Modi ab consectetur totam ipsa similique explicabo, vel reiciendis `;
   return (
     <animated.div ref={ref} style={springs}>
       <section className="pt-6 max-w-screen-xl mx-auto mt-[84px] bg-white border-1 border-[#EAECF0] rounded-xl shadow p-8">
@@ -197,10 +217,10 @@ export const Articles = () => {
           <ul className=" flex items-center">
             {navList.map((list, index) => (
               <li
-                className={`text-base hover:text-linkColor ml-6 text-${isActive === index ? "linkColor" : "greyColor"
+                className={`text-base hover:text-linkColor ml-6 text-${activeInx === index ? "linkColor" : "greyColor"
                   } font-semibold cursor-pointer`}
                 key={index}
-                onClick={() => setIsActive(index)}
+                onClick={() => setActiveInd(index)}
               >
                 {list}
               </li>
@@ -216,13 +236,48 @@ export const Articles = () => {
           </div>
         </nav>
         <div className="flex justify-between mt-10">
-          <div className="w-auto"></div>
+          <div className="w-auto mr-10">
+            <div className="flex items-center  mb-8">
+              <p className="text-3xl font-semibold mr-2">{articles[activeInx]?.title || navList[activeInx]}</p>
+              <a href="#">
+                <Image src="/download.svg" alt="download" width={22} height={24} />
+              </a>
+            </div>
+            <div
+              onClick={() => setShoStudies(prev => !prev)}
+              className="p-[10px] bg-[#FAFAFF] rounded w-full flex justify-between cursor-pointer border-1 border-[#EAECF0] mb-3">
+              Show Studies
+              <button
+                className={`w-[40px] flex justify-center items-center hover:bg-linkColor ${showStudies && "rotate-90"}`}>
+                <Image src="/next_i.svg" alt="next" width={8} height={14} />
+              </button>
+            </div>
+            {showStudies ? <ul className="bg-[#F9FAFB] py-[10px] px-8 mt-4">
+              {(articles[activeInx].studies || articles[0].studies).map(item => <li className="list-decimal">{item}</li>)}
+            </ul> : null}
+            <h3 className="text-[#101828] text-2xl my-4 ">Summary</h3>
+            <p className="text-[#667085] text-base">
+              {(articles[activeInx] || articles[0]).article}
+            </p>
+          </div>
           <div className="w-[421px] ">
             <h3 className="text-lightBlack font-semibold text-2xl">Common Strategies</h3>
             <AreaChart strategies={strategies} isSmall={false} />
             <AreaChart strategies={strategies} isSmall={false} />
           </div>
         </div>
+        <div
+          onClick={() => setShowDiscuseeion(prev => !prev)}
+          className="p-[10px] bg-[#FAFAFF] rounded w-full flex justify-between cursor-pointer border-1 border-[#EAECF0] mt-3">
+          Show Discussions (56)
+          <button
+            className={`w-[40px] flex justify-center items-center hover:bg-linkColor ${showStudies && "rotate-90"}`}>
+            <Image src="/next_i.svg" alt="next" width={8} height={14} />
+          </button>
+        </div>
+        {showDiscussion ? <div className="bg-[#F9FAFB] py-[10px] px-8 mt-4">
+          {articles[activeInx].discussion || articles[0].discussion}
+        </div> : null}
       </section>
     </animated.div>
   );

@@ -12,27 +12,25 @@ datasource db {
 
 model Article {
   id     Int     @id @default(autoincrement())
-  titles Texts[]
   title  String
+  studies String[]
+  article String
+  discussion String
 }
 
-model Texts {
-  id        Int      @id @default(autoincrement())
-  title     String
-  text      String
-  Article   Article? @relation(fields: [articleId], references: [id])
-  articleId Int?
-}
-model Series {
-  x String
-  y String
-}
-
-model Strategies {
+model Strategy {
   id  Int      @id @default(autoincrement())
   title String
-  series Series[];
-  returns Int;
-  sharpie Int;
-  maxDD  Int;
+  returns String
+  sharpie String
+  maxDD  String
+  MySeries SeriesRow[] 
+}
+
+model SeriesRow {
+  id Int @id @default(autoincrement())
+  x BigInt
+  y Int
+  strategy Strategy @relation(fields: [strategy_id], references: [id])
+  strategy_id Int
 }
